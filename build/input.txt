@@ -1,0 +1,5 @@
+5 circle fs fs fsd
+4 square sun
+3 circle asas sas a a a a
+2 circle a a a   b
+1 circle asas sas a
