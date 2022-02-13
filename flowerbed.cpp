@@ -147,3 +147,31 @@ std::list<flowerbed> flowerbed::flowerbedWithoutFlower(std::multimap<flowerbed::
     }
     return flowerbedWithoutFlower;
 }
+void flowerbed::differentShapes(std::multimap<flowerbed::shapes, flowerbed>& container){
+    std::multimap<flowerbed::shapes, flowerbed>::iterator it;
+    if (container.count(CIRCLE) > 0)
+        std::cout << "circle" << std::endl;
+    if (container.count(SQUARE) > 0)
+        std::cout << "square" << std::endl;
+    if (container.count(RHOMBUS) > 0)
+        std::cout << "rhombus" << std::endl;
+}
+void flowerbed::flowersOnFlowerbed(flowerbed& object){ std::cout << object.getFlowers() << std::endl; }
+void flowerbed::allKindsOfFlowers(std::multimap<flowerbed::shapes, flowerbed>& container){
+    std::multimap<flowerbed::shapes, flowerbed>::iterator it;
+    std::list<std::string> allFlowers;
+    for (it = container.begin(); it != container.end(); ++it){
+        for (std::string str : it->second.flowers)
+            allFlowers.push_back(str);
+    }
+    allFlowers.sort();
+    allFlowers.unique();
+    for (std::string str : allFlowers)
+        std::cout << str << std::endl;
+}
+// void flowerbed::sameFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container){
+//     std::multimap<flowerbed::shapes, flowerbed>::iterator it;
+//     for (it = container.begin(); it != container.end(); ++it){
+
+//     }
+// }

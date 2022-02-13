@@ -1,5 +1,5 @@
-5 circle fs fs fsd
-4 square sun
-3 circle asas sas a a a a
-2 circle a a a   b
-1 circle asas sas a
+5 circle rose sun z z z z
+3 square asas sas z z z
+2 circle z z z b
+1 square asas sas z a
+42 rhombus fsd fsd

@@ -33,6 +33,10 @@ public:
     static flowerbed maxKind(std::multimap<flowerbed::shapes, flowerbed>& container);
     static std::string sameFlower(std::multimap<flowerbed::shapes, flowerbed>& container);
     static std::list<flowerbed> flowerbedWithoutFlower(std::multimap<flowerbed::shapes, flowerbed>& container, const std::string& flower);
+    static void differentShapes(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static void flowersOnFlowerbed(flowerbed& object);
+    static void allKindsOfFlowers(std::multimap<flowerbed::shapes, flowerbed>& container);
+    // static void sameFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container);
 };
 
 #endif 
