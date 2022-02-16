@@ -8,35 +8,42 @@
 #include <map>
 #include <vector>
 #include <functional>
+#include<cassert>
 
 class flowerbed {
 public:
-    int id;
     enum shapes {
         CIRCLE,
         SQUARE,
         RHOMBUS
     };
-    shapes shape;
-    std::list<std::string> flowers;
-public:
     flowerbed(int flowerId, std::string flowerShape, std::list<std::string>);
     ~flowerbed() = default;
-    void addFlower(std::string flower);
     int getId();
     shapes getShape();
-    std::string getFlowers();
-    static std::multimap<flowerbed::shapes, flowerbed> getFlowerbedsFromFile(const std::string& file_path);
-    static flowerbed flowersMax(std::multimap<flowerbed::shapes, flowerbed>& container);
-    static std::vector<flowerbed> flowerbedsByNumber(std::multimap<flowerbed::shapes, flowerbed>& container, unsigned int numnberOfFlowers);
-    static flowerbed oneKindFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container);
-    static flowerbed maxKind(std::multimap<flowerbed::shapes, flowerbed>& container);
-    static std::string sameFlower(std::multimap<flowerbed::shapes, flowerbed>& container);
-    static std::list<flowerbed> flowerbedWithoutFlower(std::multimap<flowerbed::shapes, flowerbed>& container, const std::string& flower);
+    std::string strShape();
+    std::list<std::string> getFlowers();
+    std::string strFlowers();
+    void addFlower(std::string flower);
+    static std::list<flowerbed>getFlowerbedsFromFile(const std::string& file_path);
+    static void sortByShape(std::list<flowerbed>& container);
+    static std::multimap<flowerbed::shapes, flowerbed> listToMultimap(std::list<flowerbed>& container);
     static void differentShapes(std::multimap<flowerbed::shapes, flowerbed>& container);
     static void flowersOnFlowerbed(flowerbed& object);
     static void allKindsOfFlowers(std::multimap<flowerbed::shapes, flowerbed>& container);
-    // static void sameFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static void sameFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static flowerbed flowersMax(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static std::list<flowerbed> flowerbedsByNumber(std::multimap<flowerbed::shapes, flowerbed>& container, unsigned int numnberOfFlowers);
+    static flowerbed oneKindFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static flowerbed maxKind(std::multimap<flowerbed::shapes, flowerbed>& container);
+    static std::list<flowerbed> flowerbedsWithoutFlower(std::multimap<flowerbed::shapes, flowerbed>& container, const std::string& flower);
+    int operator() (std::multimap<flowerbed::shapes, flowerbed>& container);
+private:
+    int id;
+    shapes shape;
+    std::list<std::string> flowers;
+    flowerbed() = default;
 };
-
+bool operator == (flowerbed& first, flowerbed& second);
+std::ostream& operator<<(std::ostream& out, flowerbed& flowerbed);
 #endif 

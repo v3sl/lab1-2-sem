@@ -1,56 +1,48 @@
 #include"functions.h"
 
-std::ostream& operator<< (std::ostream& out, flowerbed& flowerbed){
-    out << "flowerbed id " << flowerbed.getId() << std::endl
-        << "flowerbed shape " << flowerbed.getShape() << std::endl
-        << "flowers in flowerbed: " << flowerbed.getFlowers() << std::endl;
-    return out;
-}
-int numberOfflowersOnCircleFlowerbeds(std::multimap<flowerbed::shapes,
-    flowerbed>& container){
-    int answer = 0;
+int numberOfflowersOnCircleFlowerbeds(std::multimap<flowerbed::shapes, flowerbed>& container){
+    static int answer = 0;
+    std::function add{
+        [](flowerbed& fb){answer += fb.getFlowers().size();}
+    };
+    std::vector<flowerbed> flowerbeds;
     std::multimap<flowerbed::shapes, flowerbed>::iterator it;
     for (it = container.begin(); it != container.end(); ++it){
         if (it->first == 0)
-            answer += it->second.flowers.size();
+            flowerbeds.push_back(it->second);
     }
+    std::for_each(flowerbeds.begin(), flowerbeds.end(), add);
     return answer;
-}
-void deleteFlower(std::multimap<flowerbed::shapes, flowerbed>& container,
-    std::string flower){
-    std::multimap<flowerbed::shapes, flowerbed>::iterator it;
-    for (it = container.begin(); it != container.end(); ++it)
-        it->second.flowers.remove(flower);
 }
 std::list<flowerbed>findByNumberOfFlowers(std::multimap<flowerbed::shapes, flowerbed>& container,
     int numberOfFlowers){
-    std::list<flowerbed> answer;
+    static std::list<flowerbed> resultFlowerbeds;
+    std::function isSuitalbe{
+        [numberOfFlowers](flowerbed& fb){
+            if (fb.getFlowers().size() == numberOfFlowers)
+                resultFlowerbeds.push_back(fb);
+        }
+    };
+    std::list<flowerbed> flowerbeds;
     std::multimap<flowerbed::shapes, flowerbed>::iterator it;
-    for (it = container.begin(); it != container.end(); ++it){
-        if (it->second.flowers.size() == numberOfFlowers)
-            answer.push_back(it->second);
-    }
-    return answer;
+    for (it = container.begin(); it != container.end(); ++it)
+        flowerbeds.push_back(it->second);
+    std::for_each(flowerbeds.begin(), flowerbeds.end(), isSuitalbe);
+    return resultFlowerbeds;
 }
 std::list<flowerbed>findByShape(std::multimap<flowerbed::shapes, flowerbed>& container,
     const std::string& shape){
-    std::function convert{
-        [](const std::string& strShape){
-            if (strShape == "circle")
-                return 0;
-            if (strShape == "square")
-                return 1;
-            return 2;
-        }
+    static std::list<flowerbed> resultFlowerbeds;
+    std::function isSuitalbe{
+       [shape](flowerbed& fb){
+           if (fb.strShape() == shape)
+               resultFlowerbeds.push_back(fb);
+       }
     };
-    std::list<flowerbed> answer;
+    std::list<flowerbed> flowerbeds;
     std::multimap<flowerbed::shapes, flowerbed>::iterator it;
-    for (it = container.begin(); it != container.end(); ++it){
-        if (it->first == convert(shape))
-            answer.push_back(it->second);
-    }
-    return answer;
-}
-void lambdas(){
-
+    for (it = container.begin(); it != container.end(); ++it)
+        flowerbeds.push_back(it->second);
+    std::for_each(flowerbeds.begin(), flowerbeds.end(), isSuitalbe);
+    return resultFlowerbeds;
 }

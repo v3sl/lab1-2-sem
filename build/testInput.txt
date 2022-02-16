@@ -1,0 +1,6 @@
+1 square cornflower lily
+2 circle cornflower lily
+3 rhombus cornflower lily
+4 circle lily lily
+5 circle cornflower lily rose sunflower
+6 circle rose sunflower
