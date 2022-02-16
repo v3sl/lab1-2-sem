@@ -229,6 +229,38 @@ int flowerbed::operator()(std::multimap<flowerbed::shapes, flowerbed>& container
     std::for_each(flowerbeds.begin(), flowerbeds.end(), add);
     return answer;
 };
+std::list<flowerbed> flowerbed::operator()(std::multimap<flowerbed::shapes, flowerbed>& container,
+    int numberOfFlowers){
+    static std::list<flowerbed> resultFlowerbeds;
+    std::function isSuitalbe{
+        [numberOfFlowers](flowerbed& fb){
+            if (fb.getFlowers().size() == numberOfFlowers)
+                resultFlowerbeds.push_back(fb);
+        }
+    };
+    std::list<flowerbed> flowerbeds;
+    std::multimap<flowerbed::shapes, flowerbed>::iterator it;
+    for (it = container.begin(); it != container.end(); ++it)
+        flowerbeds.push_back(it->second);
+    std::for_each(flowerbeds.begin(), flowerbeds.end(), isSuitalbe);
+    return resultFlowerbeds;
+}
+std::list<flowerbed> flowerbed::operator()(std::multimap<flowerbed::shapes, flowerbed>& container,
+    const std::string& shape){
+    static std::list<flowerbed> resultFlowerbeds;
+    std::function isSuitalbe{
+        [shape](flowerbed& fb){
+            if (fb.strShape() == shape)
+                resultFlowerbeds.push_back(fb);
+        }
+    };
+    std::list<flowerbed> flowerbeds;
+    std::multimap<flowerbed::shapes, flowerbed>::iterator it;
+    for (it = container.begin(); it != container.end(); ++it)
+        flowerbeds.push_back(it->second);
+    std::for_each(flowerbeds.begin(), flowerbeds.end(), isSuitalbe);
+    return resultFlowerbeds;
+}
 bool operator == (flowerbed& first, flowerbed& second){
     return first.getFlowers() == second.getFlowers() && first.getShape() == second.getShape();
 }

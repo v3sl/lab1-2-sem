@@ -38,6 +38,10 @@ public:
     static flowerbed maxKind(std::multimap<flowerbed::shapes, flowerbed>& container);
     static std::list<flowerbed> flowerbedsWithoutFlower(std::multimap<flowerbed::shapes, flowerbed>& container, const std::string& flower);
     int operator() (std::multimap<flowerbed::shapes, flowerbed>& container);
+    std::list<flowerbed> operator() (std::multimap<flowerbed::shapes, flowerbed>& container,
+        int numberOfFlowers);
+    std::list<flowerbed> operator() (std::multimap<flowerbed::shapes, flowerbed>& container,
+        const std::string& shape);
 private:
     int id;
     shapes shape;

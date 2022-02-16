@@ -112,6 +112,10 @@ TEST(testFuntions, testFindByNumberOfFlowers){
     ASSERT_EQ(testList.front().getId(), 5);
     ASSERT_EQ(testList.front().strShape(), "circle");
     ASSERT_EQ(testList.front().strFlowers(), "cornflower lily rose sunflower ");
+    flowerbed fb = testList.front();
+    ASSERT_EQ(fb(testMap, 4).front().getId(), 5);
+    ASSERT_EQ(fb(testMap, 4).front().strShape(), "circle");
+    ASSERT_EQ(fb(testMap, 4).front().strFlowers(), "cornflower lily rose sunflower ");
 }
 TEST(testFunctions, testFindByShape){
     std::list<flowerbed> testList = flowerbed::getFlowerbedsFromFile("testInput.txt");
@@ -121,8 +125,20 @@ TEST(testFunctions, testFindByShape){
     ASSERT_EQ(testList.front().getId(), 3);
     ASSERT_EQ(testList.front().strShape(), "rhombus");
     ASSERT_EQ(testList.front().strFlowers(), "cornflower lily ");
+    flowerbed fb = testList.front();
+    ASSERT_EQ(fb(testMap, "rhombus").front().getId(), 3);
+    ASSERT_EQ(fb(testMap, "rhombus").front().strShape(), "rhombus");
+    ASSERT_EQ(fb(testMap, "rhombus").front().strFlowers(), "cornflower lily ");
 }
-
+TEST(testOperators, comparisonOperator){
+    flowerbed testFlowerbed1(1, "circle", std::list<std::string>{"rose", "sonflower", "orhcid"});
+    flowerbed testFlowerbed2(2, "circle", std::list<std::string>{"rose", "sonflower", "orhcid"});
+    flowerbed testFlowerbed3(3, "square", std::list<std::string>{"rose", "sonflower", "orhcid"});
+    flowerbed testFlowerbed4(4, "circle", std::list<std::string>{"rose", "sonflower"});
+    ASSERT_TRUE(testFlowerbed1 == testFlowerbed2);
+    ASSERT_FALSE(testFlowerbed1 == testFlowerbed3);
+    ASSERT_FALSE(testFlowerbed1 == testFlowerbed4);
+}
 
 int main(){
     ::testing::InitGoogleTest();
