@@ -128,5 +128,21 @@ void task10(){
     std::for_each(words.begin(), words.end(), countWords);
 }
 void task11(){
-
+    element firstElement(1, 2, 3, 4);
+    element secondElement(4, 3, 2, 1);
+    element thirdElement(0, 1, 2, 3);
+    element fourthElement(-1, 2, 2, 1);
+    element fifthElement(0, 0, 0, 0);
+    std::vector<element> elements = { firstElement, secondElement ,thirdElement, fourthElement ,fifthElement };
+    container con(elements);
+    con.print();
+    con.sortByOneKey();
+    std::cout << "sorted by one key" << std::endl;
+    con.print();
+    con.sortByTwoKeys();
+    std::cout << "sorted by two keys" << std::endl;
+    con.print();
+    con.sortByThreeKeys();
+    std::cout << "sorted by three keys" << std::endl;
+    con.print();
 }
