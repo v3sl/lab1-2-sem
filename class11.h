@@ -19,12 +19,12 @@ public:
         return out;
     }
 };
-class container : protected element{
+class container : public element{
 private:
     std::vector<element> elements;
     container() = default;
 public:
-    container(std::vector<element> inputElements) : elements(inputElements){}
+    container(std::vector<element>& inputElements) : elements(std::move(inputElements)){}
     void print(){
         for (element el : elements)
             std::cout << el;

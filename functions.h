@@ -20,14 +20,14 @@ void printV(const std::vector<T>& vector){
     for (T part : vector)
         std::cout << part << std::endl;
 }
-void task1();
-void task2();
-void task3();
-void task4();
-void task5();
-void task6();
-void task7();
-void task8();
-void task9();
-void task10();
-void task11();
+void fileToList();
+void printList();
+void copyContainer();
+void sortContainer();
+void findByLetter();
+void deleteByLetter();
+void countByLetter();
+void revercePrint();
+void printDifferentWords();
+void countDifferentWords();
+void sortClass();

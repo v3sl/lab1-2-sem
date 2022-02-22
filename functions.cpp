@@ -1,6 +1,6 @@
 #include "functions.h"
 
-void task1(){
+void fileToList(){
     std::ifstream file("input.txt");
     std::list<std::string> inputList;
     std::string str;
@@ -10,17 +10,17 @@ void task1(){
         std::back_inserter(inputList));
     printL(inputList);
 }
-void task2(){
+void printList(){
     std::list<std::string> inputList = { "string", "str", "function","solution" };
     std::copy(inputList.begin(), inputList.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
 }
-void task3(){
+void copyContainer(){
     std::list<int> firstContainer = { 1,2,3,4 };
     std::vector<int> secondcontainer = { 0,0,0,0 };
     std::copy(firstContainer.begin(), firstContainer.end(), secondcontainer.begin());
     printV(secondcontainer);
 }
-void task4(){
+void sortContainer(){
     std::function bigger{
         [](const point& first, const point& second){return first >= second;}
     };
@@ -36,21 +36,25 @@ void task4(){
     points.sort(bigger);
     printL(points);
 }
-void task5(){
+void findByLetter(){
     char letter = 's';
     std::list<std::string> container = { "string", "str", "function","solution" };
     std::function equalFirstLetter{
         [letter] (const std::string word){return word[0] == letter;}
     };
+    std::list<std::string> answer1;
+    std::list<std::string> answer2;
     container.sort();
     std::list<std::string>::iterator it1 = std::find_if(container.begin(), container.end(), equalFirstLetter);
     std::list<std::string>::iterator it2 = std::find_if_not(it1, container.end(), equalFirstLetter);
-    printL(container);
+    std::copy(it1, it2, std::back_inserter(answer1));
+    printL(answer1);
     std::list<std::string>::iterator it3 = std::find_if(container.begin(), container.end(), equal(letter));
     std::list<std::string>::iterator it4 = std::find_if_not(it3, container.end(), equal(letter));
-    printL(container);
+    std::copy(it3, it4, std::back_inserter(answer2));
+    printL(answer2);
 }
-void task6(){
+void deleteByLetter(){
     char letter = 's';
     std::list<std::string> container = { "string", "str", "function", "function", "function", "solution" };
     std::function equalFirstLetter{
@@ -62,7 +66,7 @@ void task6(){
     container.erase(it1, it2);
     printL(container);
 }
-void task7(){
+void countByLetter(){
     char letter = 's';
     std::list<std::string> container = { "string", "str", "function", "function", "solution" };
     std::function containsLetter{
@@ -70,7 +74,7 @@ void task7(){
     };
     std::cout << std::count_if(container.begin(), container.end(), containsLetter) << std::endl;
 }
-void task8(){
+void revercePrint(){
     std::function reverce{
         [](std::list<std::string>& container){
             container.reverse();
@@ -80,41 +84,25 @@ void task8(){
         }
     };
     std::list<std::string> container = { "string", "str", "function","solution" };
-    printL(container);
+    reverce(container);
 }
-void task9(){
+void printDifferentWords(){
     std::ifstream file("input.txt");
     std::string str;
     std::list<std::string> words;
-    std::function isEndOfWord{
-        [](char& letter){return letter == ' ';}
-    };
-    while (file >> str){
-        std::string word;
-        for (int i = 0; i < str.size(); ++i){
-            if (str[i] != ' ')
-                word += str[i];
-
-        }
-        words.push_back(word);
-    }
+    while (file >> str)
+        words.push_back(str);
     words.sort();
     words.unique();
     std::cout << words.size() << std::endl;
     printL(words);
 }
-void task10(){
+void countDifferentWords(){
     std::ifstream file("input.txt");
     std::string str;
     std::list<std::string> words;
-    while (file >> str){
-        std::string word;
-        for (int i = 0; i < str.size(); ++i){
-            if (str[i] != ' ')
-                word += str[i];
-        }
-        words.push_back(word);
-    }
+    while (file >> str)
+        words.push_back(str);
     std::function countWords{
         [words](const std::string& word){
             int counter = -1;
@@ -127,7 +115,7 @@ void task10(){
     };
     std::for_each(words.begin(), words.end(), countWords);
 }
-void task11(){
+void sortClass(){
     element firstElement(1, 2, 3, 4);
     element secondElement(4, 3, 2, 1);
     element thirdElement(0, 1, 2, 3);

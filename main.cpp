@@ -1,6 +1,6 @@
 #include "functions.h"
 
 int main(){
-    task11();
+    sortClass();
     return 0;
 }
